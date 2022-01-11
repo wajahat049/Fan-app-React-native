@@ -108,7 +108,7 @@ useEffect(()=>{
 
 
     if(email!="" && pass!=""){
-      if(email=="wajjuwajahat123@gmaail.com" && pass=="pass123")
+      if(email=="email@gmail.com" && pass=="pass123")
       ToastAndroid.show("Login successfully",ToastAndroid.SHORT)
       props.navigation.navigate("AfterLogin")
     }

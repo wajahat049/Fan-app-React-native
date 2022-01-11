@@ -44,10 +44,6 @@ function UserLogin(props) {
 // const results = jsonToCSV(jsonData);
 // console.log(results)
 
-const [firstname, setFirstname] = useState("");
-const [lastname, setLastname] = useState("");
-const [email, setEmail] = useState("");
-const [img, setImg] = useState("");
 
 
   const [list, setList] = useState([]);
@@ -118,31 +114,31 @@ useEffect(()=>{
 // } else {
 //   // Permission denied
 // }
-// androidwifi.setEnabled(false)
-// androidwifi.loadWifiList((wifiStringList) => {
-//   var wifiArray = JSON.parse(wifiStringList);
-//   setList(wifiArray)
-//     // console.log("slslxsxn",wifiArray);
-//   },
-//   (error) => {
-//     console.log(error);
-//   }
-// );
+androidwifi.setEnabled(false)
+androidwifi.loadWifiList((wifiStringList) => {
+  var wifiArray = JSON.parse(wifiStringList);
+  setList(wifiArray)
+    // console.log("slslxsxn",wifiArray);
+  },
+  (error) => {
+    console.log(error);
+  }
+);
 
 },[])
 
 
-//  const pressed=()=>{
-// wifi.loadWifiList().then((l)=>console.log("newlist",l))
+ const pressed=()=>{
+wifi.loadWifiList().then((l)=>console.log("newlist",l))
 
-// androidwifi.loadWifiList((wifiStringList) => {
-//   var wifiArray = JSON.parse(wifiStringList);
-//     console.log("slslxsxn",wifiArray);
-//   },(error) => {
-//     console.log(error);
-//   })
+androidwifi.loadWifiList((wifiStringList) => {
+  var wifiArray = JSON.parse(wifiStringList);
+    console.log("slslxsxn",wifiArray);
+  },(error) => {
+    console.log(error);
+  })
 
-//  }
+ }
   // ______WIFI______
   const openToggle=(SSID)=>{
     androidwifi.setEnabled(false)
@@ -173,57 +169,29 @@ useEffect(()=>{
   }
 
 
-  const openPicker= () =>{
-
-    launchImageLibrary({mediaType:"photo",noData:true},response=>{
-      // console.log("response",res.assets[0].base64)
-      console.log("aknaxk")
-      setImg(response.assets[0])
-      console.log("aknaxk",response.assets[0].uri)
-      
-    })
-
-  }
+ 
     return(
-      <View style={{ marginTop:"5%" }}>
+      <View style={{ marginTop:"5%",marginBottom:"25%" }}>
 
-      <Text style={{ fontWeight: "bold", fontSize: 32 }}>All Wifi Networks</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 32,textAlign:"center" }}>All Wifi Networks</Text>
 
-
-{/* {console.log("aaaa",list)} */}
-{/* <ScrollView> */}
-      {/* {list.map((e, i) => {
+<ScrollView>
+      {list.map((e, i) => {
         return (
           <TouchableOpacity onPress={()=>{openToggle(e.SSID)}} key={i} style={{backgroundColor:"#2F89FF",padding:"3%",margin:"2%"}}>
             <Text style={{color:"white",fontSize:20}}>{e.SSID}</Text>
           </TouchableOpacity>
         )
-      })} */}
-      {/* <Button title="disconnect" color="red" onPress={() =>androidwifi.setEnabled(false)} />
-      <TextInput value={firstname} onChangeText={(e)=>{setFirstname(e)}} placeholder='first name'  />
-      <TextInput value={lastname} onChangeText={(e)=>{setLastname(e)}} placeholder='last name'  />
-      <TextInput value={email} onChangeText={(e)=>{setEmail(e)}} placeholder='email'  />
-
+      })}
     
-      <Button title="Download" color="yellow" onPress={() =>download()} /> */}
+      </ScrollView>
+      <Button title="disconnect" color="red" onPress={() =>androidwifi.setEnabled(false)} />
 
 
-      {/* </ScrollView> */}
 
 
-      <View  style={{justifyContent:"center",textAlign:"center"}}>
 
-        <Image style={{width:200,height:150,margin:10}} source={{uri:img.uri}}/>
-        <View style={{textAlign:"start",alignSelf:"center"}}>
-        <Button onPress={()=>openPicker()}  title='Upload'/>
-        </View>
-        <TextInput value={firstname} onChangeText={(e)=>{setFirstname(e)}} placeholder='first name'  />
-      <TextInput value={lastname} onChangeText={(e)=>{setLastname(e)}} placeholder='last name'  />
-      <TextInput value={email} onChangeText={(e)=>{setEmail(e)}} placeholder='email' />
-      </View>
-
-
-      {/* <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: 10 }}>
         <Modal isVisible={isModalVisible}>
           <View style={{ margin: 20, padding: 20, }}>
             <TextInput keyboardType="visible-password" placeholder="Password" value={InpPass} onChangeText={(e) => setInpPass(e)} />
@@ -234,7 +202,7 @@ useEffect(()=>{
             </View>
           </View>
         </Modal>
-      </View> */}
+      </View>
 
     </View>
      

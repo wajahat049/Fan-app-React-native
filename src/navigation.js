@@ -15,10 +15,10 @@ export default function Navigator(props) {
     return (
         <NavigationContainer>
             <Stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: 'black' } }} >
-            {/* <Stack.Screen name="Login" component={Login} options={{ title:"Login" }} />
-            <Stack.Screen name="Register" component={Register} options={{ title:"Register"}} /> */}
-            {/* <Stack.Screen name="AfterLogin" component={AfterLogin} options={{ title:"AfterLogin"}} /> */}
-            <Stack.Screen name="ConnectionWithBLE" component={ConnectionWithBLE} options={{ title:"ConnectionWithBLE"}} />
+            <Stack.Screen name="Login" component={Login} options={{ title:"Login" }} />
+            <Stack.Screen name="Register" component={Register} options={{ title:"Register"}} />
+            <Stack.Screen name="AfterLogin" component={AfterLogin} options={{ title:"AfterLogin"}} />
+            {/* <Stack.Screen name="ConnectionWithBLE" component={ConnectionWithBLE} options={{ title:"ConnectionWithBLE"}} /> */}
             {/* <Stack.Screen name="Oximeter" component={Oximeter} options={{ title:"Oximeter"}} /> */}
 
 
