@@ -1,0 +1,15 @@
+rootProject.name = 'Authentication'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+include ':react-native-sqlite-storage'
+project(':react-native-sqlite-storage').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sqlite-storage/platforms/android') // react-native-sqlite-storage >= 4.0.0
+include ':react-native-wifi'
+project(':react-native-wifi').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-wifi/android')
+include ':react-native-wifi-reborn'
+project(':react-native-wifi-reborn').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-wifi-reborn/android')
+include(':react-native-background-task')
+project(':react-native-background-task').projectDir = new File(rootProject.projectDir,'../node_modules/react-native-background-task/android')
+include ':react-native-background-actions'
+project(':react-native-background-actions').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-background-actions/android')
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-image-picker/android')
