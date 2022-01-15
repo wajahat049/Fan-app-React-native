@@ -1,9 +1,9 @@
 import React,{ useEffect, useState } from 'react';
-import { View, Text, Button, TextInput,Image,ToastAndroid, Alert,TouchableOpacity,StyleSheet } from 'react-native';
+import { View, Text, Button, TextInput,Image,ToastAndroid, Alert,TouchableOpacity,StyleSheet,AsyncStorageStatic } from 'react-native';
 import {Signup,Home_Style} from "../../style.js"
 import { openDatabase } from 'react-native-sqlite-storage';
 import Geolocation from '@react-native-community/geolocation';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -14,6 +14,8 @@ const [lati, setLati] = useState('')
 const [longi, setLongi] = useState('')
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [name, setName] = useState("");
+
 
 
 useEffect(()=>{
@@ -44,7 +46,7 @@ useEffect(()=>{
 
   }
 
-  const onLogin=()=>{
+  const onLogin=async()=>{
     // if(email!="" && pass!=""){
     //   fetch('https://auth-sql-app.herokuapp.com/Login')
     //   .then((response) => response.json())
@@ -110,6 +112,12 @@ useEffect(()=>{
     if(email!="" && pass!=""){
       if(email=="email@gmail.com" && pass=="pass123")
       ToastAndroid.show("Login successfully",ToastAndroid.SHORT)
+      setEmail("")
+      setPass("")
+      setName("")
+      await AsyncStorage.setItem("UserEmail",email)
+      await AsyncStorage.setItem("UserName",name)
+      await AsyncStorage.setItem("UserPass",pass)
       props.navigation.navigate("AfterLogin")
     }
 
@@ -122,23 +130,26 @@ useEffect(()=>{
     return(
      <View style={{alignItems:"center",marginTop:"25%"}}>
       <View>
-        <Text style={{ fontSize: 50, color: "black", fontWeight: 'bold',marginBottom:10,color:"white" }}>Login</Text>
+        <Text style={{ fontSize: 50, color: "#DA251D", fontWeight: 'bold',marginBottom:10,}}>Login</Text>
       </View>
       <View style={styles.field}>
-        <TextInput style={{color:"white",fontSize:17}} placeholderTextColor="white"  value={email} keyboardType={"email-address"} onChangeText={(e)=>setEmail(e)} placeholder="Email"/>
+        <TextInput style={{color:"#222222",fontSize:17}} placeholderTextColor="#222222"  value={name} keyboardType={"default"} onChangeText={(e)=>setName(e)} placeholder="Name"/>
       </View>
       <View style={styles.field}>
-        <TextInput style={{color:"white",fontSize:17}} placeholderTextColor="white" secureTextEntry={true} value={pass} onChangeText={(e) => setPass(e)} placeholder="Password" />
+        <TextInput style={{color:"#222222",fontSize:17}} placeholderTextColor="#222222"  value={email} keyboardType={"email-address"} onChangeText={(e)=>setEmail(e)} placeholder="Email"/>
+      </View>
+      <View style={styles.field}>
+        <TextInput style={{color:"#222222",fontSize:17}} placeholderTextColor="#222222" secureTextEntry={true} value={pass} onChangeText={(e) => setPass(e)} placeholder="Password" />
       </View>
 
     
-    <View style={{margin:"5%",paddingLeft:"3%",paddingRight:"3%",backgroundColor:"navy"}}>
+    <View style={{margin:"5%",paddingLeft:"3%",paddingRight:"3%",backgroundColor:"#DA251D"}}>
     <Text onPress={()=>onLogin()} style={styles.ButtonStyle}>Login</Text>
     </View>
     <View style={{paddingLeft:"3%",paddingRight:"3%",}}>
-    <Text onPress={()=>onForget()} style={{color:"white",fontSize:20}}>Forget Passoword?</Text>
+    <Text onPress={()=>onForget()} style={{color:"#222222",fontSize:20}}>Forget Password?</Text>
   </View>
-    <View style={{margin:"10%",paddingLeft:"5%",paddingRight:"5%",backgroundColor:"navy",marginTop:"5%"}}>
+    <View style={{margin:"10%",paddingLeft:"5%",paddingRight:"5%",backgroundColor:"#DA251D",marginTop:"5%"}}>
     <Text onPress={()=>props.navigation.navigate("Register")} style={styles.ButtonStyle}>Register</Text>
     </View>
     
@@ -151,10 +162,11 @@ useEffect(()=>{
 
 const styles = StyleSheet.create({
     field:{
+
       borderWidth: 2,
-      borderColor: "white",
+      borderColor: "#DA251D",
       width: "90%",
-      height:'12%',
+      height:'10%',
       margin: 15,
       fontSize:"25px",
       color:"white",

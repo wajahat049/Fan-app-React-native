@@ -12,8 +12,13 @@ import { jsonToCSV } from 'react-native-csv'
 // import RNFetchBlob from 'react-native-fetch-blob';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import { response } from 'express';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function UserLogin(props) {
+// DA251D - redtam
+// FFFFFF - whitetam
+// 222222 - blacktam
+
+function AfterLogin(props) {
 //   const jsonData = `[
 //   {
 //       "Column 1": "1-1",
@@ -114,9 +119,10 @@ useEffect(()=>{
 // } else {
 //   // Permission denied
 // }
-androidwifi.setEnabled(false)
+// androidwifi.setEnabled(false)
 androidwifi.loadWifiList((wifiStringList) => {
   var wifiArray = JSON.parse(wifiStringList);
+  // console.log("WIFI",wifiArray)
   setList(wifiArray)
     // console.log("slslxsxn",wifiArray);
   },
@@ -125,7 +131,7 @@ androidwifi.loadWifiList((wifiStringList) => {
   }
 );
 
-},[])
+},[list])
 
 
  const pressed=()=>{
@@ -135,11 +141,11 @@ androidwifi.loadWifiList((wifiStringList) => {
   var wifiArray = JSON.parse(wifiStringList);
     console.log("slslxsxn",wifiArray);
   },(error) => {
-    console.log(error);
+    console.log("error",error);
   })
 
  }
-  // ______WIFI______
+  // _____WIFI_____
   const openToggle=(SSID)=>{
     androidwifi.setEnabled(false)
     setInpSSID(SSID)
@@ -168,24 +174,38 @@ androidwifi.loadWifiList((wifiStringList) => {
 
   }
 
+const LogOut = async () =>{
+  await AsyncStorage.setItem("UserEmail","")
+      await AsyncStorage.setItem("UserName","")
+      await AsyncStorage.setItem("UserPass","")
+      ToastAndroid.show("Successfully LogoOut",ToastAndroid.SHORT)
+      props.navigation.navigate("Login")
 
+}
  
     return(
       <View style={{ marginTop:"5%",marginBottom:"25%" }}>
-
-      <Text style={{ fontWeight: "bold", fontSize: 32,textAlign:"center" }}>All Wifi Networks</Text>
+<View style={{display:"flex",flexDirection:"row",justifyContent:"flex-end",marginBottom:"5%"}}>
+      <TouchableOpacity onPress={()=>{props.navigation.navigate("Profile")}}>
+        <Image style={{width: 40, height: 40}} source={require("../assets/User-Profile-PNG-High-Quality-Image.png")}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{LogOut()}}>
+        <Image style={{width: 40, height: 40,marginLeft:"5%"}} source={require("../assets/logout.png")}/>
+        </TouchableOpacity>
+      </View>
+      <Text style={{ fontWeight: "bold", fontSize: 32,textAlign:"center",marginBottom:"5%", color: "#DA251D" }}>All Wifi Networks</Text>
 
 <ScrollView>
       {list.map((e, i) => {
         return (
-          <TouchableOpacity onPress={()=>{openToggle(e.SSID)}} key={i} style={{backgroundColor:"#2F89FF",padding:"3%",margin:"2%"}}>
-            <Text style={{color:"white",fontSize:20}}>{e.SSID}</Text>
+          <TouchableOpacity onPress={()=>{openToggle(e.SSID)}} key={i} style={{borderColor:"#DA251D",padding:"3%",margin:"2%", borderWidth:3,}}>
+            <Text style={{color:"#222222",fontSize:20, fontWeight:"bold", textAlign:"center"}}>{e.SSID}</Text>
           </TouchableOpacity>
         )
       })}
     
       </ScrollView>
-      <Button title="disconnect" color="red" onPress={() =>androidwifi.setEnabled(false)} />
+      <Button title="disconnect" color="#DA251D" onPress={() =>androidwifi.setEnabled(false)} />
 
 
 
@@ -211,4 +231,4 @@ androidwifi.loadWifiList((wifiStringList) => {
 }
 
  
-export default UserLogin
+export default AfterLogin
